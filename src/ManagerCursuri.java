@@ -19,7 +19,11 @@ public class ManagerCursuri {
 	public ManagerCursuri() {
 		this.cursuri = new ArrayList<Curs>();
 	}
-	
+
+	public ManagerCursuri(List<Curs> cursuri) {
+		this.cursuri = cursuri;
+	}
+
 	public void AddCurs(Curs c) {
 		this.cursuri.add(c);
 	}

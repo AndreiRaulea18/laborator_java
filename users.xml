@@ -262,5 +262,53 @@
     </void>
    </object>
   </void>
+  <void method="add">
+   <object class="User" id="User5">
+    <void class="User" method="getField">
+     <string>userName</string>
+     <void method="set">
+      <object idref="User5"/>
+      <string>doru</string>
+     </void>
+    </void>
+    <void class="User" method="getField">
+     <string>password</string>
+     <void method="set">
+      <object idref="User5"/>
+      <string>doru</string>
+     </void>
+    </void>
+    <void class="User" method="getField">
+     <string>menuStrategy</string>
+     <void method="set">
+      <object idref="User5"/>
+      <object class="TeacherStrategy" id="TeacherStrategy2">
+       <void class="TeacherStrategy" method="getField">
+        <string>profesor</string>
+        <void method="set">
+         <object idref="TeacherStrategy2"/>
+         <object class="Profesor" id="Profesor2">
+          <void class="Profesor" method="getField">
+           <string>nume</string>
+           <void method="set">
+            <object idref="Profesor2"/>
+            <string>URSUTIU</string>
+           </void>
+          </void>
+          <void class="Profesor" method="getField">
+           <string>prenume</string>
+           <void method="set">
+            <object idref="Profesor2"/>
+            <string>DORU</string>
+           </void>
+          </void>
+         </object>
+        </void>
+       </void>
+      </object>
+     </void>
+    </void>
+   </object>
+  </void>
  </object>
 </java>

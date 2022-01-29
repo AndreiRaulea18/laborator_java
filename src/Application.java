@@ -1,3 +1,5 @@
+import org.w3c.dom.css.Counter;
+
 import java.beans.ExceptionListener;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -5,14 +7,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 public class Application {
     private static Application single_instance = null;
     private List<User> userList = new ArrayList<>();
 
     public User currentUser = null;
+    // adauga
+    public ManagerCursuri managerCursuri = new ManagerCursuri(Arrays.asList(Settings.dataLoader.createCoursesData()));
+    public List<Student> students = Arrays.asList(Settings.dataLoader.createStudentsData());
+    public List<Profesor> profesors = Arrays.asList(Settings.dataLoader.createProfesorData());
 
     static Application getInstance() {
         if ( single_instance == null) {
@@ -72,4 +77,52 @@ public class Application {
             throw new Exception("Username sau parola este gresita!");
         }
     }
+
+    // verifica daca exista userul inregistrat cu username
+    public boolean userExists(String username) {
+        for (User user: userList) {
+            if (username.equals(user.userName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // cauta profesor dupa nume si prenume
+    public Profesor getProfesor(String nume, String prenume) {
+        for (Profesor profesor: profesors) {
+            if (profesor.nume.equals(nume) && profesor.prenume.equals(prenume)) {
+                return profesor;
+            }
+        }
+        return null;
+    }
+
+    // cauta studentul dupa nume si prenume
+    public Student getStudent(String nume, String prenume) {
+        for (Student student: students) {
+            if (student.nume.equals(nume) && student.prenume.equals(prenume)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public void saveUser(User user) {
+        // salveaza doar daca nu exista
+        if (!userExists(user.userName)) {
+            userList.add(user);
+            try(FileOutputStream fis = new FileOutputStream("users.xml")) {
+                XMLEncoder encoder = new XMLEncoder(fis);
+                encoder.writeObject(this.userList);
+                encoder.close();
+                fis.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
